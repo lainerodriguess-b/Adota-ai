@@ -8,17 +8,13 @@ public class Cachorro extends Animal {
     private boolean adestracao;
 
     // Construtor que recebe os dados do cachorro e da classe Animal.
-    public Cachorro(String nome, String especie, int idade,
-                    String codigoIdentificacao, 
-                    ArrayList<Object> carteiraVacinas,
-                    boolean adestracao) {
+    public Cachorro(int codigo,String nome, String especie, int idade, ArrayList<Vacina> carteiraVacinas, boolean adestracao) {
 
         // Chama o construtor da classe Animal para inicializar os atributos herdados.
-        super(nome, especie, idade, codigoIdentificacao,
-              carteiraVacinas);
+        super(codigo, nome, especie, idade, carteiraVacinas);
 
         // Inicializa o atributo específico de adestramento.
-        this.adestracao = adestracao;
+        setAdestracao(adestracao);
     }
 
     // Getter: retorna se o cachorro é adestrado.
