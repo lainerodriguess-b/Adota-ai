@@ -15,3 +15,19 @@ O código está correto como implementação básica do Main. Não há erro de s
 
 A revisão dos códigos mostra que o projeto está organizado e muito bem feito e seguindo os princípios da matéria de POO. 
 Todas as classes atenderam o desejado e não possuem nenhum erro de sintaxe, além de estarem bastante organizadas.
+
+SPRINT 1
+
+Resumo do que precisa mudar para tudo compilar e rodar
+
+Animal: trocar ArrayList<Object> por ArrayList<Vacina>, trocar o código para int codigo com getCodigo()/setCodigo() , reordenar o construtor para (codigo, nome, especie, idade, carteira) e adicionar adicionarVacina(Vacina).
+
+Cachorro: novo construtor (int codigo, String nome, String especie, int idade, ArrayList<Vacina>, boolean adestracao).
+
+Gato: a classe Gato está certa e compilada, noa possui nenhum erro de sintaxe.
+
+Vacina: adicionar toString().
+
+Main: fechar as chaves finais, corrigir " Jett" e melhorar os testes de adicionar vacina e adoção.
+
+SPRINT 2
