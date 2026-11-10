@@ -31,3 +31,13 @@ Vacina: adicionar toString().
 Main: fechar as chaves finais, corrigir " Jett" e melhorar os testes de adicionar vacina e adoção.
 
 SPRINT 2
+
+Revisão:
+
+Essa Main só compila depois de atualizar Animal, Cachorro, Gato e Vacina (construtores novos, ArrayList<Vacina>, getCodigo(), adicionarVacina() e o segundo construtor do Gato).
+
+Mover gato2.exibirFicha() para baixo do título "TESTE GATO 2 - SOBRECARGA" (atualmente ela está sob "TESTE GETTERS").
+
+Remover a linha repetida "Gato adotado", que imprime o mesmo valor de "Gato 1 adotado".
+
+Incluir gato2.exibirFicha() nas fichas finais.
