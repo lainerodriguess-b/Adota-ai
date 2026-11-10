@@ -8,17 +8,12 @@ public class Gato extends Animal {
     private String temperamento;
 
     // Construtor que recebe os dados do gato e da classe Animal.
-    public Gato(String nome, String especie, int idade,
-                    String codigoIdentificacao, 
-                    ArrayList<Object> carteiraVacinas,
-                    String temperamento) {
-
+    public Gato(int codigo, String nome, String especie, int idade, ArrayList<Vacina> carteiraVacinas, String temperamento) {
         // Chama o construtor da classe Animal para inicializar os atributos herdados.
-        super(nome, especie, idade, codigoIdentificacao,
-              carteiraVacinas);
+        super(codigo, nome, especie, idade, carteiraVacinas);
 
         // Inicializa o atributo específico do gato.
-        this.temperamento = temperamento;
+        setTemperamento(temperamento);
     }
 
     // Getter: retorna o temperamento do gato.
@@ -28,6 +23,9 @@ public class Gato extends Animal {
   
     // Setter: permite alterar o temperamento do gato.
     public void setTemperamento(String temperamento) {
+        if (temperamento == null || temperamento.trim().isEmpty()) {
+            throw new IllegalArgumentException("O temperamento do gato não pode ser nulo ou vazio.");
+        }
         this.temperamento = temperamento;
     }
   

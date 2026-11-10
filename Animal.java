@@ -4,30 +4,39 @@ import java.util.ArrayList;
 public abstract class Animal {
 
     // Atributos comuns a todos os animais.
+    private int codigo;
     private String nome;
     private String especie;
     private int idade;
-    private String codigoIdentificacao;
 
     // Lista que armazena as vacinas do animal.
-    // Object é utilizado temporariamente, pois a classe Vacina ainda não existe.
-    private ArrayList<Object> carteiraVacinas;
+    private ArrayList<Vacina> carteiraVacinas;
 
     // Indica se o animal já foi adotado.
     private boolean adotado;
 
     // Construtor: inicializa os atributos do animal ao criar um objeto.
-    public Animal(String nome, String especie, int idade,
-                  String codigoIdentificacao,
-                  ArrayList<Object> carteiraVacinas) {
-        this.nome = nome;
-        this.especie = especie;
-        this.idade = idade;
-        this.codigoIdentificacao = codigoIdentificacao;
-        this.carteiraVacinas = carteiraVacinas;
-
+    public Animal(int codigo,String nome, String especie, int idade, ArrayList<Vacina> carteiraVacinas) {
+        setCodigo(codigo);
+        setNome(nome);
+        setEspecie(especie);
+        setIdade(idade);
+        setCarteiraVacinas(carteiraVacinas);
         // Todo animal começa como não adotado.
-        this.adotado = false;
+        setAdotado(false);
+    }
+
+    // Retorna o código do animal.
+    public int getCodigo() {
+        return codigo;
+    }
+
+    // Altera o código do animal.
+    public void setCodigo(int codigo) {
+        if (codigo < 0) {
+            throw new IllegalArgumentException("O código do animal não pode ser negativo.");
+        }
+        this.codigo = codigo;
     }
 
     // Retorna o nome do animal.
@@ -37,6 +46,9 @@ public abstract class Animal {
 
     // Altera o nome do animal.
     public void setNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("O nome do animal não pode ser nulo ou vazio.");
+        }
         this.nome = nome;
     }
 
@@ -47,6 +59,9 @@ public abstract class Animal {
 
     // Altera a espécie do animal.
     public void setEspecie(String especie) {
+        if (especie == null || especie.trim().isEmpty()) {
+            throw new IllegalArgumentException("A espécie do animal não pode ser nula ou vazia.");
+        }
         this.especie = especie;
     }
 
@@ -57,27 +72,28 @@ public abstract class Animal {
 
     // Altera a idade do animal.
     public void setIdade(int idade) {
+        if (idade < 0) {
+            throw new IllegalArgumentException("A idade do animal não pode ser negativa.");
+        }
         this.idade = idade;
     }
 
-    // Retorna o código de identificação do animal.
-    public String getCodigoIdentificacao() {
-        return codigoIdentificacao;
-    }
-
-    // Altera o código de identificação do animal.
-    public void setCodigoIdentificacao(String codigoIdentificacao) {
-        this.codigoIdentificacao = codigoIdentificacao;
-    }
-
     // Retorna a lista de vacinas do animal.
-    public ArrayList<Object> getCarteiraVacinas() {
+    public ArrayList<Vacina> getCarteiraVacinas() {
         return carteiraVacinas;
     }
 
     // Altera a lista de vacinas do animal.
-    public void setCarteiraVacinas(ArrayList<Object> carteiraVacinas) {
+    public void setCarteiraVacinas(ArrayList<Vacina> carteiraVacinas) {
         this.carteiraVacinas = carteiraVacinas;
+    }
+
+    // Adiciona uma vacina à lista de vacinas do animal.
+    public void adicionarVacina(Vacina vacina){
+        if (vacina == null) {
+            throw new IllegalArgumentException("A vacina não pode ser nula.");
+        }
+        this.carteiraVacinas.add(vacina);
     }
 
     // Retorna true se o animal foi adotado e false caso contrário.
@@ -92,16 +108,26 @@ public abstract class Animal {
 
     // Marca o animal como adotado.
     public void serAdotado() {
+        if (this.adotado) {
+            throw new IllegalStateException("O animal já foi adotado.");
+        }
         this.adotado = true;
     }
 
     // Exibe os dados gerais do animal no console.
     public void exibirFicha() {
+        System.out.println("Código: " + codigo);
         System.out.println("Nome: " + nome);
         System.out.println("Espécie: " + especie);
         System.out.println("Idade: " + idade);
-        System.out.println("Código de identificação: " + codigoIdentificacao);
-        System.out.println("Carteira de vacinas: " + carteiraVacinas);
+        System.out.println("Carteira de vacinas: ");
+        if (carteiraVacinas.isEmpty()) {
+            System.out.println("Nenhuma vacina registrada.");
+        } else {
+            for (Vacina vacina : carteiraVacinas) {
+                System.out.println("- " + vacina.getNome() + ")");
+            }
+        }
 
         // Verifica se o animal foi adotado para exibir Sim ou Não.
         System.out.print("Adotado: ");
@@ -112,4 +138,3 @@ public abstract class Animal {
         }
     }
 }
-
