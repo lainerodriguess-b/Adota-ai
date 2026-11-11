@@ -18,23 +18,43 @@ public class Historico {
         return registrosAdocao.size();
     }
 
-    public void permitirAdocao(int codigoAdocao){
+    // Procura uma adoção pelo código; lança exceção se não existir.
+    public Adocao buscarAdocao(int codigoAdocao) {
         for (Adocao adocao : registrosAdocao) {
             if (adocao.getCodigo() == codigoAdocao) {
-                adocao.setSituacao("Concluída");
-                return;
+                return adocao;
             }
         }
         throw new IllegalArgumentException("Adoção com o código " + codigoAdocao + " não encontrada.");
     }
-    public void cancelarAdocao(int codigoAdocao){
+
+    // Retorna true se o animal já tem uma adoção em andamento.
+    public boolean temAdocaoEmAndamento(Animal animal) {
         for (Adocao adocao : registrosAdocao) {
-            if (adocao.getCodigo() == codigoAdocao) {
-                adocao.setSituacao("Cancelada");
-                return;
+            if (adocao.getAnimal() == animal && adocao.getSituacao().equals("Em andamento")) {
+                return true;
             }
         }
-        throw new IllegalArgumentException("Adoção com o código " + codigoAdocao + " não encontrada.");
+        return false;
+    }
+
+    // Conclui a adoção e marca o animal como adotado.
+    public void permitirAdocao(int codigoAdocao) {
+        Adocao adocao = buscarAdocao(codigoAdocao);
+        if (!adocao.getSituacao().equals("Em andamento")) {
+            throw new IllegalStateException("Só é possível concluir uma adoção em andamento.");
+        }
+        adocao.getAnimal().serAdotado();
+        adocao.setSituacao("Concluída");
+    }
+
+    // Cancela uma adoção que ainda esteja em andamento.
+    public void cancelarAdocao(int codigoAdocao) {
+        Adocao adocao = buscarAdocao(codigoAdocao);
+        if (!adocao.getSituacao().equals("Em andamento")) {
+            throw new IllegalStateException("Só é possível cancelar uma adoção em andamento.");
+        }
+        adocao.setSituacao("Cancelada");
     }
 
     public void adicionarRegistro(Adocao adocao) {
