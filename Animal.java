@@ -85,7 +85,12 @@ public abstract class Animal {
 
     // Altera a lista de vacinas do animal.
     public void setCarteiraVacinas(ArrayList<Vacina> carteiraVacinas) {
-        this.carteiraVacinas = carteiraVacinas;
+        // Evita NullPointerException: se vier null, começa com carteira vazia.
+        if (carteiraVacinas == null) {
+            this.carteiraVacinas = new ArrayList<>();
+        } else {
+            this.carteiraVacinas = carteiraVacinas;
+        }
     }
 
     // Adiciona uma vacina à lista de vacinas do animal.
@@ -125,7 +130,7 @@ public abstract class Animal {
             System.out.println("Nenhuma vacina registrada.");
         } else {
             for (Vacina vacina : carteiraVacinas) {
-                System.out.println("- " + vacina.getNome() + ")");
+                System.out.println("- " + vacina.getNome());
             }
         }
 
