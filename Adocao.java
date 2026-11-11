@@ -1,5 +1,5 @@
 public class Adocao {
-    private static int codigo;
+    private int codigo;
     private Animal animal;
     private Adotante adotante;
     private String data;
@@ -12,7 +12,7 @@ public class Adocao {
         setData(data);
         setSituacao(situacao);
     }
-    public static int getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
     public void setCodigo(int codigo) {
@@ -63,18 +63,22 @@ public class Adocao {
         if (situacao == null || situacao.trim().isEmpty()) {
             throw new IllegalArgumentException("A situação da adoção não pode ser nula ou vazia.");
         }
+        if (!situacao.equals("Em andamento") && !situacao.equals("Concluída") && !situacao.equals("Cancelada")) {
+            throw new IllegalArgumentException("Situação inválida: " + situacao);
+        }
         this.situacao = situacao;
     }
 
     public void descricao() {
         System.out.println("Descrição da Adoção:");
         System.out.println("Código: " + getCodigo());
-        System.out.println("Animal: " + animal.getNome() + " (");
+        String tipo = "Animal";
         if (animal instanceof Cachorro) {
-            System.out.println("Cachorro)");
+            tipo = "Cachorro";
         } else if (animal instanceof Gato) {
-            System.out.println("Gato)");
+            tipo = "Gato";
         }
+        System.out.println("Animal: " + animal.getNome() + " (" + tipo + ")");
         System.out.println("Adotante: " + adotante.getNome());
         System.out.println("Data: " + getData());
         System.out.println("Situação: " + getSituacao());
