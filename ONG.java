@@ -28,16 +28,10 @@ public class ONG {
         animaisDisponiveis.add(animal);
     }
     public void removerAnimal(int codigo) {
-        int contador = 0;
-        for (Animal animal : animaisDisponiveis) {
-            if (animal.getCodigo() == codigo) {
-                animaisDisponiveis.remove(contador);
-                break;
-            }
-            contador++;
+        boolean removido = animaisDisponiveis.removeIf(animal -> animal.getCodigo() == codigo);
+        if (!removido) {
+            throw new IllegalArgumentException("Animal com o código " + codigo + " não encontrado.");
         }
-        throw new IllegalArgumentException("Animal com o código " + codigo + " não encontrado.");
-        
     }
     public void adicionarAdotante(Adotante adotante) {
         if (adotante == null) {
@@ -46,16 +40,10 @@ public class ONG {
         adotantes.add(adotante);
     }
     public void removerAdotante(String cpf) {
-        int contador = 0;
-        for (Adotante adotante : adotantes) {
-            if (adotante.getCpf() == cpf) {
-                adotantes.remove(contador);
-                break;
-            }
-            contador++;
+        boolean removido = adotantes.removeIf(adotante -> adotante.getCpf().equals(cpf));
+        if (!removido) {
+            throw new IllegalArgumentException("Adotante com o CPF " + cpf + " não encontrado.");
         }
-        throw new IllegalArgumentException("Adotante com o CPF " + cpf + " não encontrado.");
-        
     }
 
     public Animal getAnimalPorCodigo(int codigo) {
@@ -69,24 +57,29 @@ public class ONG {
 
     public Adotante getAdotantePorCpf(String cpf) {
         for (Adotante adotante : adotantes) {
-            if (adotante.getCpf() == cpf) {
+            if (adotante.getCpf().equals(cpf)) {
                 return adotante;
             }
         }
-        throw new IllegalArgumentException("Adotante com o código " + cpf + " não encontrado.");
+        throw new IllegalArgumentException("Adotante com o CPF " + cpf + " não encontrado.");
     }
 
     public Adocao getAdocaoPorCodigo(int codigo) {
-        for (Adocao adocao : historico.getRegistrosAdocao()) {
-            if (adocao.getCodigo() == codigo) {
-                return adocao;
-            }
-        }
-        throw new IllegalArgumentException("Adoção com o código " + codigo + " não encontrada.");
+        return historico.buscarAdocao(codigo);
     }
 
     public void registrarAdocao(int codigoAnimal, String cpfAdotante, String data) {
-        Adocao adocao = new Adocao(historico.quantAdocoes() + 1, getAnimalPorCodigo(codigoAnimal), getAdotantePorCpf(cpfAdotante), data,  "Em andamento");
+        Animal animal = getAnimalPorCodigo(codigoAnimal);
+        Adotante adotante = getAdotantePorCpf(cpfAdotante);
+
+        if (animal.getAdotado()) {
+            throw new IllegalStateException("O animal " + animal.getNome() + " já foi adotado.");
+        }
+        if (historico.temAdocaoEmAndamento(animal)) {
+            throw new IllegalStateException("O animal " + animal.getNome() + " já tem uma adoção em andamento.");
+        }
+
+        Adocao adocao = new Adocao(historico.quantAdocoes() + 1, animal, adotante, data, "Em andamento");
         historico.adicionarRegistro(adocao);
     }
 
