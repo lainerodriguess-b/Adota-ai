@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 // Classe principal do programa, responsável por executar os testes.
@@ -93,11 +92,10 @@ public class Main {
 
         // Testa o método de adoção do animal.
         System.out.println("\nTESTE SER ADOTADO");
-        cachorro.serAdotado();
+        // O cachorro será adotado mais abaixo, pelo fluxo da ONG (seção 5).
         gato.serAdotado();
         gato2.serAdotado();
 
-        System.out.println("Cachorro adotado: " + cachorro.getAdotado());
         System.out.println("Gato 1 adotado: " + gato.getAdotado());
         System.out.println("Gato 2 adotado: " + gato2.getAdotado());
 
@@ -173,10 +171,26 @@ public class Main {
         ong.permitirAdocao(1);
 
         System.out.println("Situação da adoção: " + adocao.getSituacao());
+        System.out.println("Cachorro adotado: " + cachorro.getAdotado());
 
         // Exibe o registro atualizado.
         System.out.println("\nHISTÓRICO ATUALIZADO");
         adocao.descricao();
+
+        // 5.1 TESTES DE ERRO (devem lançar exceção)
+        System.out.println("\nTESTES DE ERRO");
+        try {
+            ong.registrarAdocao(1, "12345678900", "12/11/2026");
+        } catch (IllegalStateException e) {
+            System.out.println("OK, bloqueou readoção: " + e.getMessage());
+        }
+        try {
+            ong.removerAnimal(99);
+        } catch (IllegalArgumentException e) {
+            System.out.println("OK, animal inexistente: " + e.getMessage());
+        }
+        ong.removerAdotante(new String("12345678900"));
+        System.out.println("Adotantes após remover: " + ong.getAdotantes().size());
 
         // 6. EXIBIÇÃO FINAL DAS FICHAS
 
