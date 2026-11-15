@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adota aí | Animais</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+
+<header class="topbar">
+    <a class="logo" href="index.html">Adota <span>aí</span>♥️</a>
+
+    <nav class="nav">
+        <a href="index.html">Início</a>
+        <a class="active" href="animais.html">Animais</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+    </nav>
+
+    <a class="btn dark" href="quero-adotar.html">🐾 Quero adotar</a>
+</header>
+
+<main class="page-main">
+
+    <div class="catalog-head">
+        <div>
+            <h1>Nossos animais</h1>
+            <p>Conheça alguns dos nossos amigos que estão esperando por um lar.</p>
+        </div>
+
+        <input
+            id="animal-search"
+            class="search-input"
+            placeholder="Buscar por nome ou espécie "
+        >
+    </div>
+
+    <div class="catalog-layout">
+
+        <aside class="filters">
+            <button class="filter active" data-filter="Todos">🐾 Todos</button>
+            <button class="filter" data-filter="Cachorro">Cachorros</button>
+            <button class="filter" data-filter="Gato">Gatos</button>
+            
+        </aside>
+
+        <div class="animal-grid catalog-grid" id="all-animals"></div>
+
+    </div>
+
+</main>
+
+<footer class="footer">
+    <a class="logo light" href="index.html">Adota <span>aí</span>♥️</a>
+    <p>Porque todo animal merece<br>um lar. ♥️</p>
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="animais.html">Animais</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+    </nav>
+</footer>
+
+</body>
+</html>
