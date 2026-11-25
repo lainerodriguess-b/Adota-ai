@@ -25,7 +25,6 @@ public class Adocao {
     public Animal getAnimal() {
         return animal;
     }
-
     public void setAnimal(Animal animal) {
         if (animal == null) {
             throw new IllegalArgumentException("O animal não pode ser nulo.");
