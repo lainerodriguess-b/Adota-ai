@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 // Classe Cachorro herda os atributos e métodos da classe Animal.
@@ -8,13 +7,18 @@ public class Cachorro extends Animal {
     private boolean adestracao;
 
     // Construtor que recebe os dados do cachorro e da classe Animal.
-    public Cachorro(int codigo,String nome, String especie, int idade, ArrayList<Vacina> carteiraVacinas, boolean adestracao) {
+    public Cachorro(int codigo,String nome, String especie, int idade, String sexo, ArrayList<Vacina> carteiraVacinas, boolean adestracao) {
 
         // Chama o construtor da classe Animal para inicializar os atributos herdados.
-        super(codigo, nome, especie, idade, carteiraVacinas);
+        super(codigo, nome, especie, idade, sexo, carteiraVacinas);
 
         // Inicializa o atributo específico de adestramento.
         setAdestracao(adestracao);
+    }
+
+    public Cachorro(int codigo,String nome, String especie, int idade, String sexo, ArrayList<Vacina> carteiraVacinas) {
+        super(codigo, nome, especie, idade, sexo, carteiraVacinas);
+        this.adestracao = false; // Por padrão, o cachorro não é adestrado.
     }
 
     // Getter: retorna se o cachorro é adestrado.
