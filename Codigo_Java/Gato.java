@@ -7,14 +7,14 @@ public class Gato extends Animal {
     private String temperamento;
 
     // Construtor que recebe os dados do gato e da classe Animal.
-    public Gato(int codigo, String nome, String especie, int idade, ArrayList<Vacina> carteiraVacinas, String temperamento) {
-        super(codigo, nome, especie, idade, carteiraVacinas);
+    public Gato(int codigo, String nome, String especie, int idade, String sexo, ArrayList<Vacina> carteiraVacinas, String temperamento) {
+        super(codigo, nome, especie, idade, sexo, carteiraVacinas);
         setTemperamento(temperamento);
     }
 
     // Construtor sobrecarregado sem informar o temperamento.
-    public Gato(int codigo, String nome, String especie, int idade, ArrayList<Vacina> carteiraVacinas) {
-        super(codigo, nome, especie, idade, carteiraVacinas);
+    public Gato(int codigo, String nome, String especie, int idade, String sexo, ArrayList<Vacina> carteiraVacinas) {
+        super(codigo, nome, especie, idade, sexo, carteiraVacinas);
         this.temperamento = "Não informado";
     }
 
