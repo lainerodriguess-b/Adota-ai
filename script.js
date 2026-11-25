@@ -58,87 +58,94 @@ const animais = [
     }
 ];
 
+// Elementos da página de animais
 const areaAnimais = document.getElementById("all-animals");
-const filtros = document.querySelectorAll(".filter");
-const pesquisa = document.getElementById("animal-search");
 
-// Mostra os animais na página
-function mostrarAnimais(lista) {
+if (areaAnimais) {
 
-    areaAnimais.innerHTML = "";
+    const filtros = document.querySelectorAll(".filter");
+    const pesquisa = document.getElementById("animal-search");
 
-    if (lista.length === 0) {
-        areaAnimais.innerHTML = "<p>Nenhum animal encontrado.</p>";
-        return;
+    // Mostra os animais
+    function mostrarAnimais(lista) {
+
+        areaAnimais.innerHTML = "";
+
+        if (lista.length === 0) {
+            areaAnimais.innerHTML = "<p>Nenhum animal encontrado.</p>";
+            return;
+        }
+
+        lista.forEach(animal => {
+
+            const card = document.createElement("details");
+            card.className = "animal-card";
+
+            card.innerHTML = `
+                <summary>
+                    <img src="${animal.imagem}" alt="${animal.nome}">
+
+                    <div class="animal-info">
+                        <span class="tag">${animal.especie}</span>
+                        <h3>${animal.nome}</h3>
+                        <p>📍 Iporá - GO</p>
+                        <p>🐾 ${animal.idade}</p>
+                        <p class="ver-mais">Ver mais informações ↓</p>
+                    </div>
+                </summary>
+
+                <div class="animal-details">
+                    <h3>${animal.nome}</h3>
+                    <p><strong>Idade:</strong> ${animal.idade}</p>
+                    <p><strong>Sexo:</strong> ${animal.sexo}</p>
+
+                    <a class="btn dark" href="quero-adotar.html">
+                        Quero adotar
+                    </a>
+                </div>
+            `;
+
+            areaAnimais.appendChild(card);
+        });
     }
 
-    lista.forEach(animal => {
+    // Filtra por espécie
+    filtros.forEach(botao => {
 
-        const card = document.createElement("details");
-        card.className = "animal-card";
+        botao.addEventListener("click", () => {
 
-        card.innerHTML = `
-            <summary>
-                <img src="${animal.imagem}" alt="${animal.nome}">
-                
-                <div class="animal-info">
-                    <span class="tag">${animal.especie}</span>
-                    <h3>${animal.nome}</h3>
-                    <p>📍 Iporá - GO</p>
-                    <p>🐾 ${animal.idade}</p>
-                    <p class="ver-mais">Ver mais informações ↓</p>
-                </div>
-            </summary>
+            filtros.forEach(f => f.classList.remove("active"));
+            botao.classList.add("active");
 
-            <div class="animal-details">
-                <h3>${animal.nome}</h3>
-                <p><strong>Idade:</strong> ${animal.idade}</p>
-                <p><strong>Sexo:</strong> ${animal.sexo}</p>
-                <a class="btn dark" href="quero-adotar.html?animal=${encodeURIComponent(animal.nome)}">
-                    Quero adotar
-                </a>
-            </div>
-        `;
+            const categoria = botao.dataset.filter;
 
-        areaAnimais.appendChild(card);
+            if (categoria === "Todos") {
+                mostrarAnimais(animais);
+            } else {
+                const filtrados = animais.filter(animal =>
+                    animal.especie === categoria
+                );
+
+                mostrarAnimais(filtrados);
+            }
+        });
     });
-}
 
-// Filtra por espécie
-filtros.forEach(botao => {
+    // Pesquisa por nome ou espécie
+    if (pesquisa) {
+        pesquisa.addEventListener("input", () => {
 
-    botao.addEventListener("click", () => {
+            const termo = pesquisa.value.toLowerCase();
 
-        filtros.forEach(f => f.classList.remove("active"));
-
-        botao.classList.add("active");
-
-        const categoria = botao.dataset.filter;
-
-        if (categoria === "Todos") {
-            mostrarAnimais(animais);
-        } else {
-            const filtrados = animais.filter(animal =>
-                animal.especie === categoria
+            const encontrados = animais.filter(animal =>
+                animal.nome.toLowerCase().includes(termo) ||
+                animal.especie.toLowerCase().includes(termo)
             );
 
-            mostrarAnimais(filtrados);
-        }
-    });
-});
+            mostrarAnimais(encontrados);
+        });
+    }
 
-// Pesquisa por nome ou espécie
-pesquisa.addEventListener("input", () => {
-
-    const termo = pesquisa.value.toLowerCase();
-
-    const encontrados = animais.filter(animal =>
-        animal.nome.toLowerCase().includes(termo) ||
-        animal.especie.toLowerCase().includes(termo)
-    );
-
-    mostrarAnimais(encontrados);
-});
-
-// Exibe todos ao abrir a página
-mostrarAnimais(animais);
+    // Exibe todos ao abrir a página
+    mostrarAnimais(animais);
+}
