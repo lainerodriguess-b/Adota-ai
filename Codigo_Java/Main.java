@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 // Classe principal do programa, responsável por executar os testes.
 public class Main {
     public static void main(String[] args) {
@@ -102,7 +103,7 @@ public class Main {
 
         Adotante adotante = new Adotante(
             "Ana Ju", 18, "12345678900",
-            2500.00, "ana.ju@example.com", "Rua Toquio, 100", "62940028922"
+            2500.00, "Rua Toquio, 100", "anaju@email.com", "62940028922"
         );
 
         System.out.println("\nTESTE ADOTANTE");
@@ -115,12 +116,14 @@ public class Main {
         System.out.println("CPF: " + adotante.getCpf());
         System.out.println("Renda: " + adotante.getRenda());
         System.out.println("Endereço: " + adotante.getEndereco());
+        System.out.println("E-mail: " + adotante.getEmail());
         System.out.println("Telefone: " + adotante.getTelefone());
 
         adotante.setNome("Marina Silva");
         adotante.setIdade(21);
         adotante.setRenda(8000.00);
         adotante.setEndereco("Avenida Pará, 200");
+        adotante.setEmail("marina@email.com");
         adotante.setTelefone("62988888888");
 
         System.out.println("\nDados atualizados do adotante:");
@@ -188,7 +191,7 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.out.println("OK, animal inexistente: " + e.getMessage());
         }
-        ong.removerAdotante(new String("12345678900"));
+        ong.removerAdotante("12345678900");
         System.out.println("Adotantes após remover: " + ong.getAdotantes().size());
 
         // 6. EXIBIÇÃO FINAL DAS FICHAS
