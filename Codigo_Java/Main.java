@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 // Classe principal do programa, responsável por executar os testes.
 public class Main {
     public static void main(String[] args) {
@@ -37,17 +36,17 @@ public class Main {
 
         // Cria um objeto Cachorro.
         Cachorro cachorro = new Cachorro(
-            1, "Aisha", "Cachorro", 3, vacinasCachorro, true
+            1, "Aisha", "Cachorro", 3, "Fêmea", vacinasCachorro, true
         );
 
         // Cria um Gato informando o temperamento.
         Gato gato = new Gato(
-            2, "Stella", "Gato", 2, vacinasGato, "Brincalhão"
+            2, "Stella", "Gato", 2, "Fêmea", vacinasGato, "Brincalhão"
         );
 
         // Cria um Gato sem informar o temperamento.
         Gato gato2 = new Gato(
-            3, "Tecna", "Gato", 1, new ArrayList<Vacina>()
+            3, "Tecna", "Gato", 1, "Fêmea", new ArrayList<Vacina>()
         );
 
         // Testa a exibição das fichas.
@@ -103,7 +102,7 @@ public class Main {
 
         Adotante adotante = new Adotante(
             "Ana Ju", 18, "12345678900",
-            2500.00, "Rua Toquio, 100", "62940028922"
+            2500.00, "ana.ju@example.com", "Rua Toquio, 100", "62940028922"
         );
 
         System.out.println("\nTESTE ADOTANTE");
