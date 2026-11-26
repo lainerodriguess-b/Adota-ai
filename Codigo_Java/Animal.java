@@ -8,6 +8,7 @@ public abstract class Animal {
     private String nome;
     private String especie;
     private int idade;
+    private String sexo;
 
     // Lista que armazena as vacinas do animal.
     private ArrayList<Vacina> carteiraVacinas;
@@ -16,11 +17,12 @@ public abstract class Animal {
     private boolean adotado;
 
     // Construtor: inicializa os atributos do animal ao criar um objeto.
-    public Animal(int codigo,String nome, String especie, int idade, ArrayList<Vacina> carteiraVacinas) {
+    public Animal(int codigo,String nome, String especie, int idade, String sexo, ArrayList<Vacina> carteiraVacinas) {
         setCodigo(codigo);
         setNome(nome);
         setEspecie(especie);
         setIdade(idade);
+        setSexo(sexo);
         setCarteiraVacinas(carteiraVacinas);
         // Todo animal começa como não adotado.
         setAdotado(false);
@@ -70,12 +72,25 @@ public abstract class Animal {
         return idade;
     }
 
-    // Altera a idade do animal.
+        // Altera a idade do animal.
     public void setIdade(int idade) {
         if (idade < 0) {
             throw new IllegalArgumentException("A idade do animal não pode ser negativa.");
         }
         this.idade = idade;
+    }
+
+    // Retorna o sexo do animal.
+    public String getSexo() {
+        return sexo;
+    }
+
+    // Altera o sexo do animal (Macho ou Fêmea).
+    public void setSexo(String sexo) {
+        if (sexo == null || sexo.trim().isEmpty()) {
+            throw new IllegalArgumentException("O sexo do animal não pode ser nulo ou vazio.");
+        }
+        this.sexo = sexo;
     }
 
     // Retorna a lista de vacinas do animal.
@@ -120,12 +135,13 @@ public abstract class Animal {
         System.out.println("Nome: " + nome);
         System.out.println("Espécie: " + especie);
         System.out.println("Idade: " + idade);
+        System.out.println("Sexo: " + sexo);
         System.out.println("Carteira de vacinas: ");
         if (carteiraVacinas.isEmpty()) {
             System.out.println("Nenhuma vacina registrada.");
         } else {
             for (Vacina vacina : carteiraVacinas) {
-                System.out.println("- " + vacina.getNome() + ")");
+                System.out.println("- " + vacina.getNome());
             }
         }
 
